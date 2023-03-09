@@ -62,7 +62,7 @@
 				<div class="text-center">
 					<h1 class="mb-0">Browser Info</h1>
 					<p class="mb-4 mb-lg-5">A small tool to help with support tasks</p>
-					<div class="row g-3">
+					<div class="row g-3 mb-5">
 						<div class="col-lg">
 							<article class="h-100">
 								<div class="icon"><i class="js-device-icon fa-solid"></i></div>
@@ -88,6 +88,17 @@
 							</article>
 						</div>
 					</div>
+					<h2 class="mb-0">Working with a developer?</h2>
+					<p>You can easily copy all the details from above from the following text area to give them to your developer:</p>
+					<div class="row justify-content-center">
+						<div class="col-lg-6">
+							<div class="form-group mb-3">
+								<textarea name="details" id="details" rows="2" class="form-control js-details" spellcheck="false"></textarea>
+								<div class="valid-feedback">Details copied to the clipboard!</div>
+							</div>
+							<a href="#" class="btn btn-outline-primary js-copy-details"><i class="fa-solid fa-copy"></i> Copy details</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -107,7 +118,10 @@
 			const ua = new UAParser(),
 				device = ua.getDevice(),
 				browser = ua.getBrowser(),
-				os = ua.getOS();
+				os = ua.getOS(),
+				textarea = $('[name=details]'),
+				deviceScreen = $('.js-device-screen'),
+				deviceViewport = $('.js-device-viewport');
 			// Text labels
 			$('.js-browser-name').text(browser.name );
 			$('.js-browser-version').text(browser.version);
@@ -165,13 +179,42 @@
 					$('.js-browser-icon').attr('class', 'fa-solid fa-globe');
 				break;
 			}
+			let details = {
+				device: {},
+				os: {
+					name: os.name,
+					version: os.version
+				},
+				browser: {
+					name: browser.name,
+					version: browser.version
+				}
+			};
 			// Dynamic sizes
 			const updateSizes = () => {
-				$('.js-device-screen').text(`${screen.width}x${screen.height} pixels`);
-				$('.js-device-viewport').text(`${innerWidth}x${innerHeight} pixels`);
+				details.device = {
+					screen: `${screen.width}x${screen.height}`,
+					viewport: `${innerWidth}x${innerHeight}`
+				};
+				textarea.val( JSON.stringify(details) );
+				deviceScreen.text(`${screen.width}x${screen.height} pixels`);
+				deviceViewport.text(`${innerWidth}x${innerHeight} pixels`);
 				requestAnimationFrame(updateSizes);
 			};
 			updateSizes();
+			// Copy button
+			$('.js-copy-details').click((e) => {
+				e.preventDefault();
+				textarea.select();
+				if (! textarea.hasClass('is-valid') ) {
+					textarea.addClass('is-valid');
+					setTimeout(() => {
+						textarea.removeClass('is-valid');
+						textarea.get(0).selectionStart = textarea.get(0).selectionEnd;
+					}, 1500);
+				}
+				document.execCommand('copy');
+			});
 		});
 	</script>
 </body>
