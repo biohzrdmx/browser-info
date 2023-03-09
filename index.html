@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Browser Info</title>
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+	<style>
+		body {
+			display: flex;
+			min-height: 100vh;
+			flex-direction: column;
+		}
+		a {
+			text-decoration: none;
+		}
+		section {
+			flex: 1 0 0;
+		}
+		span {
+			font-size: 0.85em;
+			display: block;
+			color: #777;
+		}
+		strong {
+			display: block;
+		}
+		strong::first-letter {
+			text-transform:capitalize;
+		}
+		article {
+			background: #FAFAFA;
+			border-radius: 0.25rem;
+			padding: 1rem;
+		}
+		.icon {
+			display: flex;
+			background: var(--bs-primary);
+			color: var(--bs-white);
+			width: 4rem;
+			height: 4rem;
+			border-radius: 4rem;
+			font-size: 2rem;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 1rem;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<div class="container py-1">
+			<div class="my-3">
+				<div class="text-center">
+					<h1 class="mb-0">Browser Info</h1>
+					<p class="mb-4 mb-lg-5">A small tool to help with support tasks</p>
+					<div class="row g-3">
+						<div class="col-lg">
+							<article class="h-100">
+								<div class="icon"><i class="js-device-icon fa-solid"></i></div>
+								<h3>Device</h3>
+								<div class="mb-2"><span>Screen resolution</span><strong class="js-device-screen">--</strong></div>
+								<div><span>Viewport size</span><strong class="js-device-viewport">--</strong></div>
+							</article>
+						</div>
+						<div class="col-lg">
+							<article class="h-100">
+								<div class="icon"><i class="js-os-icon fa-brands"></i></div>
+								<h3>Operating system</h3>
+								<div class="mb-2"><span>Name</span><strong class="js-os-name">--</strong></div>
+								<div><span>Version</span><strong class="js-os-version">--</strong></div>
+							</article>
+						</div>
+						<div class="col-lg">
+							<article class="h-100">
+								<div class="icon"><i class="js-browser-icon fa-brands"></i></div>
+								<h3>Browser</h3>
+								<div class="mb-2"><span>Name</span><strong class="js-browser-name">--</strong></div>
+								<div><span>Version</span><strong class="js-browser-version">--</strong></div>
+							</article>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer>
+		<div class="py-3">
+			<div class="text-center">
+				<div><small class="text-muted">Copyright &copy; 2023 biohzrdmx. All rights reserved.</small></div>
+				<div><small class="text-muted">Source code available at <a href="https://github.com/biohzrdmx/browser-info">GitHub</a> and released under the <a href="https://github.com/biohzrdmx/browser-info/blob/master/LICENSE">MIT</a> license.</small></div>
+			</div>
+		</div>
+	</footer>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/UAParser.js/1.0.34/ua-parser.min.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			const ua = new UAParser(),
+				device = ua.getDevice(),
+				browser = ua.getBrowser(),
+				os = ua.getOS();
+			// Text labels
+			$('.js-browser-name').text(browser.name );
+			$('.js-browser-version').text(browser.version);
+			$('.js-os-name').text(os.name);
+			$('.js-os-version').text(os.version);
+			// Icons
+			switch (device.type) {
+				case 'mobile':
+					$('.js-device-icon').addClass('fa-mobile-screen');
+				break;
+				case 'tablet':
+					$('.js-device-icon').addClass('fa-tablet-screen-button');
+				break;
+				case 'smarttv':
+					$('.js-device-icon').addClass('fa-tv');
+				break;
+				default:
+					$('.js-device-icon').addClass(device.type ? 'fa-microchip' : 'fa-desktop');
+				break;
+			}
+			switch (os.name) {
+				case 'Windows':
+					$('.js-os-icon').addClass('fa-windows');
+				break;
+				case 'Mac OS':
+					$('.js-os-icon').addClass('fa-apple');
+				break;
+				case 'Android':
+					$('.js-os-icon').addClass('fa-android');
+				break;
+				case 'Linux':
+					$('.js-os-icon').addClass('fa-linux');
+				break;
+				case 'Ubuntu':
+					$('.js-os-icon').addClass('fa-ubuntu');
+				break;
+				default:
+					$('.js-os-icon').attr('class', 'fa-solid fa-gears');
+				break;
+			}
+			switch (browser.name) {
+				case 'Firefox':
+					$('.js-browser-icon').addClass('fa-firefox');
+				break;
+				case 'Chrome':
+					$('.js-browser-icon').addClass('fa-chrome');
+				break;
+				case 'Safari':
+					$('.js-browser-icon').addClass('fa-safari');
+				break;
+				case 'Edge':
+					$('.js-browser-icon').addClass('fa-edge');
+				break;
+				default:
+					$('.js-browser-icon').attr('class', 'fa-solid fa-globe');
+				break;
+			}
+			// Dynamic sizes
+			const updateSizes = () => {
+				$('.js-device-screen').text(`${screen.width}x${screen.height} pixels`);
+				$('.js-device-viewport').text(`${innerWidth}x${innerHeight} pixels`);
+				requestAnimationFrame(updateSizes);
+			};
+			updateSizes();
+		});
+	</script>
+</body>
+</html>
