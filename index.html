@@ -25,17 +25,6 @@
 		section {
 			flex: 1 0 0;
 		}
-		span {
-			font-size: 0.85em;
-			display: block;
-			color: #777;
-		}
-		strong {
-			display: block;
-		}
-		strong::first-letter {
-			text-transform:capitalize;
-		}
 		article {
 			background: #FAFAFA;
 			border-radius: 0.25rem;
@@ -53,6 +42,17 @@
 			justify-content: center;
 			margin: 0 auto 1rem;
 		}
+		.details strong {
+			display: block;
+		}
+		.details strong::first-letter {
+			text-transform:capitalize;
+		}
+		.details span {
+			font-size: 0.85em;
+			display: block;
+			color: #777;
+		}
 	</style>
 </head>
 <body>
@@ -60,43 +60,45 @@
 		<div class="container py-1">
 			<div class="my-3">
 				<div class="text-center">
-					<h1 class="mb-0">Browser Info</h1>
-					<p class="mb-4 mb-lg-5">A small tool to help with support tasks</p>
-					<div class="row g-3 mb-5">
-						<div class="col-lg">
-							<article class="h-100">
-								<div class="icon"><i class="js-device-icon fa-solid"></i></div>
-								<h3>Device</h3>
-								<div class="mb-2"><span>Screen resolution</span><strong class="js-device-screen">--</strong></div>
-								<div><span>Viewport size</span><strong class="js-device-viewport">--</strong></div>
-							</article>
-						</div>
-						<div class="col-lg">
-							<article class="h-100">
-								<div class="icon"><i class="js-os-icon fa-brands"></i></div>
-								<h3>Operating system</h3>
-								<div class="mb-2"><span>Name</span><strong class="js-os-name">--</strong></div>
-								<div><span>Version</span><strong class="js-os-version">--</strong></div>
-							</article>
-						</div>
-						<div class="col-lg">
-							<article class="h-100">
-								<div class="icon"><i class="js-browser-icon fa-brands"></i></div>
-								<h3>Browser</h3>
-								<div class="mb-2"><span>Name</span><strong class="js-browser-name">--</strong></div>
-								<div><span>Version</span><strong class="js-browser-version">--</strong></div>
-							</article>
+					<h1 class="mb-0" data-translate="main.title">Browser Info</h1>
+					<p class="mb-4 mb-lg-5" data-translate="main.text">A small tool to help with support tasks</p>
+					<div class="details">
+						<div class="row g-3 mb-5">
+							<div class="col-lg">
+								<article class="h-100">
+									<div class="icon"><i class="js-device-icon fa-solid"></i></div>
+									<h3 data-translate="device.title">Device</h3>
+									<div class="mb-2"><span data-translate="device.screen">Screen resolution</span><strong class="js-device-screen">--</strong></div>
+									<div><span data-translate="device.viewport">Viewport size</span><strong class="js-device-viewport">--</strong></div>
+								</article>
+							</div>
+							<div class="col-lg">
+								<article class="h-100">
+									<div class="icon"><i class="js-os-icon fa-brands"></i></div>
+									<h3 data-translate="os.title">Operating system</h3>
+									<div class="mb-2"><span data-translate="os.name">Name</span><strong class="js-os-name">--</strong></div>
+									<div><span data-translate="os.version">Version</span><strong class="js-os-version">--</strong></div>
+								</article>
+							</div>
+							<div class="col-lg">
+								<article class="h-100">
+									<div class="icon"><i class="js-browser-icon fa-brands"></i></div>
+									<h3 data-translate="browser.title">Browser</h3>
+									<div class="mb-2"><span data-translate="browser.name">Name</span><strong class="js-browser-name">--</strong></div>
+									<div><span data-translate="browser.version">Version</span><strong class="js-browser-version">--</strong></div>
+								</article>
+							</div>
 						</div>
 					</div>
-					<h2 class="mb-0">Working with a developer?</h2>
-					<p>You can easily copy all the details from above from the following text area to give them to your developer:</p>
+					<h2 class="mb-1" data-translate="details.title">Working with a developer?</h2>
+					<p class="mb-3" data-translate="details.text">You can easily copy all the details from above from the following text area to give them to your developer:</p>
 					<div class="row justify-content-center">
 						<div class="col-lg-6">
 							<div class="form-group mb-3">
 								<textarea name="details" id="details" rows="2" class="form-control js-details" spellcheck="false"></textarea>
-								<div class="valid-feedback">Details copied to the clipboard!</div>
+								<div class="valid-feedback" data-translate="details.copied">Details copied to the clipboard!</div>
 							</div>
-							<a href="#" class="btn btn-outline-primary js-copy-details"><i class="fa-solid fa-copy"></i> Copy details</a>
+							<a href="#" class="btn btn-outline-primary js-copy-details"><i class="fa-solid fa-copy"></i> <span data-translate="details.button">Copy details</span></a>
 						</div>
 					</div>
 				</div>
@@ -104,8 +106,22 @@
 		</div>
 	</section>
 	<footer>
-		<div class="py-3">
+		<div class="container py-3">
 			<div class="text-center">
+				<div class="row justify-content-center mb-2">
+					<div class="col-md-3 col-lg-2">
+						<div class="form-group mb-2">
+							<select name="locale" id="locale" class="form-select">
+								<option value="de">Deutsch</option>
+								<option value="en">English</option>
+								<option value="es">Español</option>
+								<option value="fr">Français</option>
+								<option value="it">Italiano</option>
+								<option value="pt">Português</option>
+							</select>
+						</div>
+					</div>
+				</div>
 				<div><small class="text-muted">Copyright &copy; 2023 biohzrdmx. All rights reserved.</small></div>
 				<div><small class="text-muted">Source code available at <a href="https://github.com/biohzrdmx/browser-info">GitHub</a> and released under the <a href="https://github.com/biohzrdmx/browser-info/blob/master/LICENSE">MIT</a> license.</small></div>
 			</div>
@@ -198,8 +214,8 @@
 					viewport: `${innerWidth}x${innerHeight}`
 				};
 				textarea.val( JSON.stringify(details) );
-				deviceScreen.text(`${screen.width}x${screen.height} pixels`);
-				deviceViewport.text(`${innerWidth}x${innerHeight} pixels`);
+				deviceScreen.text(`${screen.width}x${screen.height}`);
+				deviceViewport.text(`${innerWidth}x${innerHeight}`);
 				requestAnimationFrame(updateSizes);
 			};
 			updateSizes();
@@ -216,6 +232,129 @@
 				}
 				document.execCommand('copy');
 			});
+			// Localized strings
+			const locales = {
+				'de': {
+					"main.title": "Browser Info",
+					"main.text": "Ein kleines Tool zur Unterstützung bei Support-Aufgaben",
+					"device.title": "Gerät",
+					"device.screen": "Bildschirmauflösung",
+					"device.viewport": "Ansichtsfenstergröße",
+					"os.title": "Betriebssystem",
+					"os.name": "Name",
+					"os.version": "Ausführung",
+					"browser.title": "Browser",
+					"browser.name": "Name",
+					"browser.version": "Ausführung",
+					"details.title": "Arbeiten Sie mit einem Entwickler zusammen?",
+					"details.text": "Sie können alle Details von oben einfach aus dem folgenden Textbereich kopieren, um sie Ihrem Entwickler zu geben:",
+					"details.copied": "Details in die Zwischenablage kopiert!",
+					"details.button": "Details kopieren"
+				},
+				'en': {
+					"main.title": "Browser Info",
+					"main.text": "A small tool to help with support tasks",
+					"device.title": "Device",
+					"device.screen": "Screen resolution",
+					"device.viewport": "Viewport size",
+					"os.title": "Operating system",
+					"os.name": "Name",
+					"os.version": "Version",
+					"browser.title": "Browser",
+					"browser.name": "Name",
+					"browser.version": "Version",
+					"details.title": "Working with a developer?",
+					"details.text": "You can easily copy all the details from above from the following text area to give them to your developer:",
+					"details.copied": "Details copied to the clipboard!",
+					"details.button": "Copy details"
+				},
+				'es': {
+					"main.title": "Browser Info",
+					"main.text": "Una pequeña herramienta para ayudar con tareas de soporte",
+					"device.title": "Dispositivo",
+					"device.screen": "Resolución de pantalla",
+					"device.viewport": "Tamaño de ventana",
+					"os.title": "Sistema operativo",
+					"os.name": "Nombre",
+					"os.version": "Versión",
+					"browser.title": "Navegador",
+					"browser.name": "Nombre",
+					"browser.version": "Versión",
+					"details.title": "¿Trabajas con un desarrollador?",
+					"details.text": "Puedes copiar fácilmente todos los detalles de arriba desde la siguiente área de texto para dárselos a tu desarrollador:",
+					"details.copied": "¡Detalles copiados al portapapeles!",
+					"details.button": "Copiar detalles"
+				},
+				'fr': {
+					"main.title": "Browser Info",
+					"main.text": "Un petit outil pour aider aux tâches de support",
+					"device.title": "Appareil",
+					"device.screen": "Résolution d'écran",
+					"device.viewport": "Taille de la fenêtre",
+					"os.title": "Système opérateur",
+					"os.name": "Nom",
+					"os.version": "Version",
+					"browser.title": "Navigateur",
+					"browser.name": "Nom",
+					"browser.version": "Version",
+					"details.title": "Travailler avec un développeur?",
+					"details.text": "Vous pouvez facilement copier tous les détails ci-dessus à partir de la zone de texte suivante pour les donner à votre développeur:",
+					"details.copied": "Détails copiés dans le presse-papier!",
+					"details.button": "Copier les détails"
+				},
+				'it': {
+					"main.title": "Browser Info",
+					"main.text": "Un piccolo strumento per aiutare con le attività di supporto",
+					"device.title": "Dispositivo",
+					"device.screen": "Risoluzione dello schermo",
+					"device.viewport": "Dimensioni della finestra",
+					"os.title": "Sistema operativo",
+					"os.name": "Nome",
+					"os.version": "Versione",
+					"browser.title": "Navigatore",
+					"browser.name": "Nome",
+					"browser.version": "Versione",
+					"details.title": "Lavori con uno sviluppatore?",
+					"details.text": "Puoi facilmente copiare tutti i dettagli dall'alto dalla seguente area di testo per darli al tuo sviluppatore:",
+					"details.copied": "Dettagli copiati negli appunti!",
+					"details.button": "Copia i dettagli"
+				},
+				'pt': {
+					"main.title": "Browser Info",
+					"main.text": "Uma pequena ferramenta para ajudar nas tarefas de suporte",
+					"device.title": "Dispositivo",
+					"device.screen": "Resolução da tela",
+					"device.viewport": "Tamanho da janela de visualização",
+					"os.title": "Sistema operacional",
+					"os.name": "Nome",
+					"os.version": "Versão",
+					"browser.title": "Navegador",
+					"browser.name": "Nome",
+					"browser.version": "Versão",
+					"details.title": "Trabalhando com um desenvolvedor?",
+					"details.text": "Você pode facilmente copiar todos os detalhes acima da seguinte área de texto para fornecê-los ao seu desenvolvedor:",
+					"details.copied": "Detalhes copiados para a área de transferência!",
+					"details.button": "Copiar detalhes",
+				}
+			};
+			// Locale loading
+			(() => {
+				const locale = localStorage.getItem('locale') || 'en';
+				$('[name="locale"]').val(locale);
+			})();
+			// Locale switching
+			$('[name="locale"]').on('change', (e) => {
+				const select = $(e.currentTarget),
+					locale = select.val();
+				if ( locales[locale] != undefined ) {
+					localStorage.setItem('locale', locale);
+					$('[data-translate]').each((index, element) => {
+						const el = $(element),
+							key = el.data('translate');
+						el.text( locales[locale][key] || `Missing string '${key}'` );
+					});
+				}
+			}).trigger('change');
 		});
 	</script>
 </body>
